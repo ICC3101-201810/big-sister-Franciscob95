@@ -175,6 +175,7 @@ namespace LabPOO
 
         public event ComprobarReceta EliminarProducto;
         EliminarProducto += new ComprobarReceta(object.EsNecesario);
+        EliminarProducto(this, Receta);
 
         public static void SupplyStore()
         {
