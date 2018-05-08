@@ -12,10 +12,10 @@ namespace LabPOO
         public static List<Product> cart;
         public static List<Product> market;
         public delegate void ComprobarReceta(Product product, Receta receta);
-
+        List<Receta> receta;
         public void PopulateReceta()
         {
-            List<Receta> receta = new List<Receta>();
+            receta = new List<Receta>();
             receta.Add(new Receta("Láminas de Lasaña", 12));
             receta.Add(new Receta("Queso Rallado Parmesano", 1));
             receta.Add(new Receta("Mantequilla", 2));
@@ -152,25 +152,29 @@ namespace LabPOO
         {
             return product.Agregar(cart);
         }
-        public void EsNecesario(Product product, Receta receta)
+        public void EsNecesario()
         {
             foreach (Product i in cart)
             {
+                int count = 0;
                 foreach (Receta h in receta)
                 {
-                    if (i == h)
+                    if (i = h)
                     {
+                        count++;
                         continue;
                     }
-                    Console.WriteLine("Este producto no esta en la receta!" + i.Unit + " " + i.Name);
-                    cart.Remove(i);   
                 }
-                continue;
+                if (count == 1)
+                {
+                    Console.WriteLine("Este producto no esta en la receta!" + i.Unit + " " + i.Name);
+                    cart.Remove(i);
+                }
             }
         }
 
         public event ComprobarReceta EliminarProducto;
-        EliminarProducto += new ComprobarReceta(EsNecesario);
+        EliminarProducto += new ComprobarReceta(object.EsNecesario);
 
         public static void SupplyStore()
         {
