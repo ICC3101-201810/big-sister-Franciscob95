@@ -11,6 +11,25 @@ namespace LabPOO
     {
         public static List<Product> cart;
         public static List<Product> market;
+        public delegate void ComprobarReceta(Product product, Receta receta);
+
+        public void PopulateReceta()
+        {
+            List<Receta> receta = new List<Receta>();
+            receta.Add(new Receta("Láminas de Lasaña", 12));
+            receta.Add(new Receta("Queso Rallado Parmesano", 1));
+            receta.Add(new Receta("Mantequilla", 2));
+            receta.Add(new Receta("Carne Molida", 1));
+            receta.Add(new Receta("Vino Blanco Caja", 1));
+            receta.Add(new Receta("Tomates Pelados en lata", 1));
+            receta.Add(new Receta("Bolsa de Zanahorias", 1));
+            receta.Add(new Receta("Malla de Cebollas", 1));
+            receta.Add(new Receta("Aceite de Oliva", 1));
+            receta.Add(new Receta("Sal Lobos", 2));
+            receta.Add(new Receta("Pimienta", 2));
+            receta.Add(new Receta("Harina", 1));
+            receta.Add(new Receta("Leche Entera", 1));
+        }
 
         static void Main(string[] args)
         {
@@ -133,6 +152,25 @@ namespace LabPOO
         {
             return product.Agregar(cart);
         }
+        public void EsNecesario(Product product, Receta receta)
+        {
+            foreach (Product i in cart)
+            {
+                foreach (Receta h in receta)
+                {
+                    if (i == h)
+                    {
+                        continue;
+                    }
+                    Console.WriteLine("Este producto no esta en la receta!" + i.Unit + " " + i.Name);
+                    cart.Remove(i);   
+                }
+                continue;
+            }
+        }
+
+        public event ComprobarReceta EliminarProducto;
+        EliminarProducto += new ComprobarReceta(EsNecesario);
 
         public static void SupplyStore()
         {
@@ -191,5 +229,6 @@ namespace LabPOO
                 response = Console.ReadKey(true);
             }
         }
+
     }
 }
